@@ -22,7 +22,7 @@ export default function Hero() {
           />
         </div>
         <div className="hero-tagline">
-          Understanding doesn&rsquo;t<br />survive the boundary.
+          Pull the understanding through.
         </div>
         <div className="hero-sub">
           Qord is a methodology and a protocol for preserving the continuity

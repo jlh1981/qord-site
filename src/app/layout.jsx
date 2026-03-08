@@ -6,7 +6,7 @@ export const metadata = {
   metadataBase: new URL('https://theqord.com'),
   openGraph: {
     title: 'qord',
-    description: 'Understanding doesn\'t survive the boundary. Qord fixes that.',
+    description: 'Pull the understanding through. A methodology and protocol for preserving continuity across any boundary.',
     url: 'https://theqord.com',
     siteName: 'qord',
     images: [
@@ -22,7 +22,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'qord',
-    description: 'Understanding doesn\'t survive the boundary. Qord fixes that.',
+    description: 'Pull the understanding through. A methodology and protocol for preserving continuity across any boundary.',
     images: ['/images/qord-social-1024-light.png'],
   },
   icons: {
