@@ -413,6 +413,7 @@ body {
   .menu-items { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .menu-item { white-space: nowrap; font-size: 10px; padding: 4px 10px; }
   .menu-logo { margin-right: 16px; font-size: 12px; }
+  .menu-right { display: none; }
   .two-col { grid-template-columns: 1fr; }
   .two-col > div:first-child { border-right: none; border-bottom: 2px solid var(--border); }
   .lines-demo { grid-template-columns: 1fr; }
@@ -420,9 +421,11 @@ body {
   .line-cell:last-child { border-bottom: none; }
   .protocol-steps { grid-template-columns: 1fr; }
   .step { border-right: none; border-bottom: 2px solid var(--border); }
+  .step:nth-last-child(-n+2) { border-bottom: 2px solid var(--border); }
   .step:last-child { border-bottom: none; }
   .toolkit-grid { grid-template-columns: 1fr; }
   .toolkit-item { border-right: none; border-bottom: 2px solid var(--border); }
+  .toolkit-item:nth-last-child(-n+3) { border-bottom: 2px solid var(--border); }
   .toolkit-item:last-child { border-bottom: none; }
   .window { margin: 12px; }
   .hero-body { padding: 32px 20px; }
