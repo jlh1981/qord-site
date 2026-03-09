@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Window from './Window';
 
 export default function Problem() {
@@ -33,34 +32,37 @@ export default function Problem() {
       <div className="lines-demo">
         <div className="line-cell">
           <svg className="line-svg" viewBox="0 0 200 60" fill="none">
+            <rect x="-3" y="32" width="6" height="6" stroke="#000" strokeWidth="1.2" fill="none" />
             <path
               d="M 0 35 C 50 25, 100 40, 150 28 C 170 24, 185 30, 200 28"
               stroke="#000"
               strokeWidth="1.2"
               strokeLinecap="round"
             />
+            <rect x="197" y="25" width="6" height="6" stroke="#000" strokeWidth="1.2" fill="none" />
           </svg>
           <div className="line-name">smooth</div>
           <div className="line-label">How people think it went</div>
         </div>
         <div className="line-cell">
           <svg className="line-svg" viewBox="0 0 200 60" fill="none">
+            <rect x="-3" y="32" width="6" height="6" stroke="#000" strokeWidth="1.2" fill="none" />
             <path
               d="M 0 35 C 25 28, 35 42, 50 32 C 65 22, 75 40, 90 30 C 105 20, 115 38, 135 28 C 150 20, 165 35, 200 28"
               stroke="#000"
               strokeWidth="1.2"
               strokeLinecap="round"
             />
+            <rect x="197" y="25" width="6" height="6" stroke="#000" strokeWidth="1.2" fill="none" />
           </svg>
           <div className="line-name">refined</div>
           <div className="line-label">White papers &amp; summaries</div>
         </div>
         <div className="line-cell">
-          <Image
-            src="/images/qord-icon-light.png"
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/qord_line.svg"
             alt="qord mark"
-            width={800}
-            height={800}
             className="line-cell-logo"
             style={{ width: '100%', height: 'auto' }}
           />

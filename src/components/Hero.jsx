@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Window from './Window';
 
 export default function Hero() {
@@ -12,12 +11,10 @@ export default function Hero() {
     <Window title="qord" className="hero-window">
       <div className="hero-body">
         <div className="hero-logo">
-          <Image
-            src="/images/qord-logo-light.png"
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/qord_logo_1.svg"
             alt="qord logo"
-            width={2400}
-            height={1600}
-            priority
             style={{ width: '100%', height: 'auto' }}
           />
         </div>
