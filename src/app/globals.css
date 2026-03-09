@@ -234,7 +234,7 @@ body {
 .line-cell:hover { background: var(--fg); color: var(--bg); }
 .line-cell:hover .line-label { color: var(--bg); }
 .line-cell:hover svg path { stroke: var(--bg); }
-.line-cell:hover svg rect { stroke: var(--bg); }
+.line-cell:hover svg rect { stroke: var(--bg); fill: var(--bg); }
 .line-cell:hover .line-cell-logo { filter: invert(1); }
 
 .line-svg { width: 100%; height: auto; margin-bottom: 12px; }

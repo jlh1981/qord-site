@@ -31,29 +31,29 @@ export default function Problem() {
       {/* Three lines visualization */}
       <div className="lines-demo">
         <div className="line-cell">
-          <svg className="line-svg" viewBox="0 0 200 60" fill="none">
-            <rect x="-3" y="32" width="6" height="6" stroke="#000" strokeWidth="1.2" fill="none" />
+          <svg className="line-svg" viewBox="-10 10 220 40" fill="none">
+            <rect x="-6" y="29" width="12" height="12" fill="#000" />
             <path
               d="M 0 35 C 50 25, 100 40, 150 28 C 170 24, 185 30, 200 28"
               stroke="#000"
               strokeWidth="1.2"
               strokeLinecap="round"
             />
-            <rect x="197" y="25" width="6" height="6" stroke="#000" strokeWidth="1.2" fill="none" />
+            <rect x="194" y="22" width="12" height="12" fill="#000" />
           </svg>
           <div className="line-name">smooth</div>
           <div className="line-label">How people think it went</div>
         </div>
         <div className="line-cell">
-          <svg className="line-svg" viewBox="0 0 200 60" fill="none">
-            <rect x="-3" y="32" width="6" height="6" stroke="#000" strokeWidth="1.2" fill="none" />
+          <svg className="line-svg" viewBox="-10 10 220 40" fill="none">
+            <rect x="-6" y="29" width="12" height="12" fill="#000" />
             <path
               d="M 0 35 C 25 28, 35 42, 50 32 C 65 22, 75 40, 90 30 C 105 20, 115 38, 135 28 C 150 20, 165 35, 200 28"
               stroke="#000"
               strokeWidth="1.2"
               strokeLinecap="round"
             />
-            <rect x="197" y="25" width="6" height="6" stroke="#000" strokeWidth="1.2" fill="none" />
+            <rect x="194" y="22" width="12" height="12" fill="#000" />
           </svg>
           <div className="line-name">refined</div>
           <div className="line-label">White papers &amp; summaries</div>
