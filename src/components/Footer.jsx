@@ -42,10 +42,6 @@ export default function Footer() {
         >
           toolkit
         </button>
-        {' \u00B7 '}
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-          github
-        </a>
       </span>
     </div>
   );
