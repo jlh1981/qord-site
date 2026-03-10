@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function CTA() {
   return (
-    <Window title="alert">
+    <Window title="qord">
       <div className="window-body" style={{ textAlign: 'center', padding: 48 }}>
         <div
           style={{

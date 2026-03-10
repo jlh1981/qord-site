@@ -216,41 +216,6 @@ export default function ExperienceDemo() {
         </div>
       </Window>
 
-      <Window title="how this qord was made">
-        <div className="window-body">
-          <div className="section-number">the use case</div>
-          <div className="section-heading" style={{ marginBottom: 16 }}>
-            What you&rsquo;re about to interact with is real.
-          </div>
-          <div className="section-text" style={{ maxWidth: 620, marginBottom: 20 }}>
-            This qord was generated from the actual development of Qord itself.
-            The concept evolved across multiple conversations inside a single
-            Claude project over the course of one week, from initial idea through
-            protocol design, testing, branding, site build, and product pivot.
-          </div>
-          <div className="section-text" style={{ maxWidth: 620, marginBottom: 20 }}>
-            When it was time to build this experience page, the understanding
-            was scattered across those conversations. A new chat in the same
-            project couldn&rsquo;t access the full depth. So we ran the Qord
-            protocol: a retroactive log was generated across all conversations
-            in the project, producing 42 structured entries covering every
-            decision, rejected alternative, dependency, risk, architectural
-            choice, scope boundary, evolution, and open question.
-          </div>
-          <div className="section-text" style={{ maxWidth: 620, marginBottom: 20 }}>
-            That log now powers what you see below. The visualization renders
-            it. The shapes map to the eight categories. When you click a node
-            and ask a question, the Claude API answers with the full log as
-            context. The depth is real because the data is real.
-          </div>
-          <div className="section-text" style={{ maxWidth: 620, color: '#888' }}>
-            This is the product workflow. Build something with AI. The qord
-            captures the understanding. Take it anywhere. The understanding
-            survives.
-          </div>
-        </div>
-      </Window>
-
       <Window title="qord.visualizer" id="visualizer">
         <div className="exp-tabs">
           {views.map(v => <button key={v.key} className={`exp-tab ${view===v.key?'active':''}`} onClick={()=>setView(v.key)}>{v.label}</button>)}
@@ -322,6 +287,41 @@ export default function ExperienceDemo() {
         {view==='qord' && !selected && <div className="exp-legend">
           {Object.entries(cats).map(([key,c]) => <div key={key} className="exp-legend-item"><MiniShape type={c.shape} /><span>{c.label}</span></div>)}
         </div>}
+      </Window>
+
+      <Window title="how this qord was made">
+        <div className="window-body">
+          <div className="section-number">the use case</div>
+          <div className="section-heading" style={{ marginBottom: 16 }}>
+            Everything above is real.
+          </div>
+          <div className="section-text" style={{ maxWidth: 620, marginBottom: 20 }}>
+            This qord was generated from the actual development of Qord itself.
+            The concept evolved across multiple conversations inside a single
+            Claude project over the course of one week, from initial idea through
+            protocol design, testing, branding, site build, and product pivot.
+          </div>
+          <div className="section-text" style={{ maxWidth: 620, marginBottom: 20 }}>
+            When it was time to build this experience page, the understanding
+            was scattered across those conversations. A new chat in the same
+            project couldn&rsquo;t access the full depth. So we ran the Qord
+            protocol: a retroactive log was generated across all conversations
+            in the project, producing 42 structured entries covering every
+            decision, rejected alternative, dependency, risk, architectural
+            choice, scope boundary, evolution, and open question.
+          </div>
+          <div className="section-text" style={{ maxWidth: 620, marginBottom: 20 }}>
+            That log powers what you see above. The visualization renders
+            it. The shapes map to the eight categories. When you click a node
+            and ask a question, the Claude API answers with the full log as
+            context. The depth is real because the data is real.
+          </div>
+          <div className="section-text" style={{ maxWidth: 620, color: '#888' }}>
+            This is the product workflow. Build something with AI. The qord
+            captures the understanding. Take it anywhere. The understanding
+            survives.
+          </div>
+        </div>
       </Window>
 
       <Window title="readme.txt">
