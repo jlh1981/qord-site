@@ -1,6 +1,7 @@
 'use client';
 
 import Window from './Window';
+import Link from 'next/link';
 
 export default function Hero() {
   const scrollTo = (id) => {
@@ -22,17 +23,17 @@ export default function Hero() {
           Pull the understanding through.
         </div>
         <div className="hero-sub">
-          Qord is a methodology and a protocol for preserving the continuity
-          of understanding across any boundary the work touches. The AI that
-          builds the work also assembles a continuous line of understanding
-          so it can be pulled through.
+          Understanding breaks every time work crosses a boundary &mdash;
+          between people, between tools, between conversations on the same
+          platform. Qord preserves it. Click into a real project and feel
+          the difference.
         </div>
         <div className="hero-buttons">
-          <button className="btn" onClick={() => scrollTo('protocol')}>
-            Read the protocol
-          </button>
-          <button className="btn btn-ghost" onClick={() => scrollTo('toolkit')}>
-            Get the toolkit
+          <Link href="/experience" className="btn" style={{ textDecoration: 'none' }}>
+            Experience Qord
+          </Link>
+          <button className="btn btn-ghost" onClick={() => scrollTo('problem')}>
+            Learn more
           </button>
         </div>
       </div>

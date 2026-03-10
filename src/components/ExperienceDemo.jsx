@@ -25,7 +25,7 @@ const nodes = [
 ];
 
 const cats = {
-  Evolution: { shape: 'star', label: 'Evolution' },
+  Evolution: { shape: 'asterisk', label: 'Evolution' },
   Decisions: { shape: 'square', label: 'Decisions' },
   Dependencies: { shape: 'circle', label: 'Dependencies' },
   Rejected: { shape: 'diamond', label: 'Rejected alternatives' },
@@ -36,9 +36,9 @@ const cats = {
 };
 
 const views = [
-  { key: 'surface', label: 'what they see', desc: 'The summary. The bullet points. The flat line.' },
-  { key: 'translated', label: "what they're given", desc: 'The deck. The brief. Smoothed out.' },
-  { key: 'qord', label: 'the actual qord', desc: 'Every decision, pivot, risk, and breakthrough. Click any shape.' },
+  { key: 'surface', label: 'the deliverable', desc: 'What arrives. The work itself, without the understanding behind it.' },
+  { key: 'translated', label: 'the summary', desc: 'The deck. The brief. Compressed, smoothed out, and incomplete.' },
+  { key: 'qord', label: 'the qord', desc: 'Every decision, pivot, risk, and breakthrough. Click any shape.' },
 ];
 
 function Shape({ type, x, y, size, active, hovered, onClick }) {
@@ -57,6 +57,7 @@ function Shape({ type, x, y, size, active, hovered, onClick }) {
     case 'hexagon': { const pts = Array.from({length:6},(_,i)=>{const a=(Math.PI/3)*i-Math.PI/2;return `${Math.cos(a)*s},${Math.sin(a)*s}`;}).join(' '); return wrap(<polygon points={pts} {...common} />); }
     case 'pentagon': { const pts = Array.from({length:5},(_,i)=>{const a=(Math.PI*2/5)*i-Math.PI/2;return `${Math.cos(a)*s*0.9},${Math.sin(a)*s*0.9}`;}).join(' '); return wrap(<polygon points={pts} {...common} />); }
     case 'star': { const pts = Array.from({length:10},(_,i)=>{const a=(Math.PI/5)*i-Math.PI/2;const r=i%2===0?s:s*0.4;return `${Math.cos(a)*r},${Math.sin(a)*r}`;}).join(' '); return wrap(<polygon points={pts} {...common} />); }
+    case 'asterisk': { const c = active ? '#fff' : '#000'; const bg = active ? '#000' : 'none'; const lw = 2; return wrap(<g opacity={opacity} style={{transition:'all 0.1s',cursor:'pointer'}}><circle r={s*0.85} fill={bg} stroke={active?'#000':'none'} strokeWidth={active?2:0}/>{[0,60,120].map(a=><line key={a} x1={Math.cos(a*Math.PI/180)*s*0.7} y1={Math.sin(a*Math.PI/180)*s*0.7} x2={Math.cos((a+180)*Math.PI/180)*s*0.7} y2={Math.sin((a+180)*Math.PI/180)*s*0.7} stroke={c} strokeWidth={lw} strokeLinecap="round"/>)}</g>); }
     case 'question': return wrap(<g><circle r={s*0.85} {...common} /><text textAnchor="middle" dominantBaseline="central" fontSize={size*0.55} fontWeight="bold" fontFamily="'Silkscreen', monospace" fill={active?'#000':'#fff'} style={{pointerEvents:'none'}}>?</text></g>);
     default: return wrap(<circle r={s*0.85} {...common} />);
   }
@@ -66,10 +67,83 @@ function MiniShape({ type }) {
   return <svg width={16} height={16} style={{overflow:'visible',display:'block'}}><Shape type={type} x={8} y={8} size={12} active={false} hovered={false} onClick={()=>{}} /></svg>;
 }
 
-function surfacePath(w, h) { const mid=h/2,pts=[]; for(let i=0;i<=80;i++){pts.push(`${i===0?'M':'L'}${(i/80)*w},${mid+Math.sin(i*0.08)*2+Math.sin(i*0.2)*1}`);} return pts.join(' '); }
-function translatedPath(w, h) { const mid=h/2,pts=[]; for(let i=0;i<=150;i++){const t=i/150;pts.push(`${i===0?'M':'L'}${t*w},${mid+Math.sin(t*Math.PI*3.5)*18+Math.sin(t*Math.PI*7)*6+Math.sin(t*Math.PI*1.2)*10}`);} return pts.join(' '); }
-function qordPath(w, h) { const mid=h/2,pts=[]; for(let i=0;i<=300;i++){const t=i/300;let y=mid+Math.sin(t*Math.PI*4)*22+Math.sin(t*Math.PI*9)*8+Math.cos(t*Math.PI*6)*12+Math.sin(t*Math.PI*2.5)*15; for(const d of nodes){const dist=Math.abs(t-d.x);if(dist<0.06)y+=Math.sin(dist*100)*(1-dist/0.06)*8;} pts.push(`${i===0?'M':'L'}${t*w},${y}`);} return pts.join(' '); }
-function getY(t, h) { return h/2+Math.sin(t*Math.PI*4)*22+Math.sin(t*Math.PI*9)*8+Math.cos(t*Math.PI*6)*12+Math.sin(t*Math.PI*2.5)*15; }
+// Seeded PRNG for deterministic paths
+function seededRng(seed) {
+  let s = seed;
+  return () => { s = (s * 16807 + 0) % 2147483647; return (s - 1) / 2147483646; };
+}
+
+function surfacePath(w, h) {
+  const mid = h / 2, pts = [];
+  for (let i = 0; i <= 80; i++) {
+    pts.push(`${i === 0 ? 'M' : 'L'}${(i / 80) * w},${mid + Math.sin(i * 0.08) * 2 + Math.sin(i * 0.2) * 1}`);
+  }
+  return pts.join(' ');
+}
+
+function translatedPath(w, h) {
+  const mid = h / 2, pts = [];
+  for (let i = 0; i <= 150; i++) {
+    const t = i / 150;
+    pts.push(`${i === 0 ? 'M' : 'L'}${t * w},${mid + Math.sin(t * Math.PI * 3.5) * 18 + Math.sin(t * Math.PI * 7) * 6 + Math.sin(t * Math.PI * 1.2) * 10}`);
+  }
+  return pts.join(' ');
+}
+
+// Generate organic, angular path driven by node data
+function qordPath(w, h, nodeData) {
+  const rng = seededRng(42);
+  const mid = h / 2;
+  const complexity = Math.min(nodeData.length / 10, 2.5); // scales with node count
+
+  // Build waypoints: start, each node, end
+  const waypoints = [{ x: 0, y: mid, sig: 0 }];
+  for (const n of nodeData) {
+    const sigMult = n.sig === 'H' ? 1.4 : 0.8;
+    const yOff = (rng() - 0.5) * h * 0.55 * sigMult * complexity;
+    waypoints.push({ x: n.x * w, y: mid + yOff, sig: sigMult });
+  }
+  waypoints.push({ x: w, y: mid, sig: 0 });
+  waypoints.sort((a, b) => a.x - b.x);
+
+  // Build cubic bezier path through waypoints
+  let d = `M ${waypoints[0].x},${waypoints[0].y}`;
+
+  for (let i = 0; i < waypoints.length - 1; i++) {
+    const p0 = waypoints[i];
+    const p1 = waypoints[i + 1];
+    const dx = p1.x - p0.x;
+    const dy = p1.y - p0.y;
+    const tension = 0.3 + rng() * 0.5;
+    const avgSig = (p0.sig + p1.sig) / 2;
+    const chaos = (0.3 + avgSig * 0.7) * complexity;
+
+    // Sharp, angular control points
+    const cp1x = p0.x + dx * tension;
+    const cp1y = p0.y + (rng() - 0.5) * h * 0.7 * chaos;
+    const cp2x = p1.x - dx * tension;
+    const cp2y = p1.y + (rng() - 0.5) * h * 0.7 * chaos;
+
+    d += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${p1.x},${p1.y}`;
+  }
+
+  return d;
+}
+
+// Cache the waypoint Y positions so nodes sit on the line
+function getNodeY(nodeData, w, h) {
+  const rng = seededRng(42);
+  const mid = h / 2;
+  const complexity = Math.min(nodeData.length / 10, 2.5);
+  const yMap = {};
+
+  for (const n of nodeData) {
+    const sigMult = n.sig === 'H' ? 1.4 : 0.8;
+    const yOff = (rng() - 0.5) * h * 0.55 * sigMult * complexity;
+    yMap[n.id] = mid + yOff;
+  }
+  return yMap;
+}
 
 export default function ExperienceDemo() {
   const [view, setView] = useState('surface');
@@ -91,7 +165,8 @@ export default function ExperienceDemo() {
   useEffect(() => { chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [chatMessages]);
   useEffect(() => { if (selected) setTimeout(() => inputRef.current?.focus(), 300); }, [selected]);
 
-  const svgH = 180, pad = 40, drawW = svgW - pad * 2;
+  const svgH = 260, pad = 40, drawW = svgW - pad * 2;
+  const nodeYMap = getNodeY(nodes, drawW, svgH);
 
   const sendMessage = useCallback(async () => {
     const text = chatInput.trim();
@@ -142,13 +217,13 @@ export default function ExperienceDemo() {
             {view==='surface' && <path d={surfacePath(drawW,svgH)} fill="none" stroke="#000" strokeWidth={1.2} transform={`translate(${pad},0)`} />}
             {view==='translated' && <path d={translatedPath(drawW,svgH)} fill="none" stroke="#000" strokeWidth={1.2} transform={`translate(${pad},0)`} />}
             {view==='qord' && <>
-              <path d={qordPath(drawW,svgH)} fill="none" stroke="#000" strokeWidth={1} opacity={0.2} transform={`translate(${pad},0)`} />
-              {nodes.map(n => <g key={n.id} onMouseEnter={()=>setHoveredId(n.id)} onMouseLeave={()=>setHoveredId(null)}><Shape type={cats[n.cat].shape} x={pad+n.x*drawW} y={getY(n.x,svgH)} size={16} active={selectedId===n.id} hovered={hoveredId===n.id} onClick={()=>setSelectedId(selectedId===n.id?null:n.id)} /></g>)}
+              <path d={qordPath(drawW,svgH,nodes)} fill="none" stroke="#000" strokeWidth={1.5} opacity={0.25} transform={`translate(${pad},0)`} strokeLinecap="round" strokeLinejoin="round" />
+              {nodes.map(n => <g key={n.id} onMouseEnter={()=>setHoveredId(n.id)} onMouseLeave={()=>setHoveredId(null)}><Shape type={cats[n.cat].shape} x={pad+n.x*drawW} y={nodeYMap[n.id]} size={16} active={selectedId===n.id} hovered={hoveredId===n.id} onClick={()=>setSelectedId(selectedId===n.id?null:n.id)} /></g>)}
             </>}
           </svg>
         </div>
 
-        {view==='surface' && <div className="exp-hint">Click <button className="exp-hint-link" onClick={()=>setView('qord')}>the actual qord</button> to see what&rsquo;s underneath.</div>}
+        {view==='surface' && <div className="exp-hint">Click <button className="exp-hint-link" onClick={()=>setView('qord')}>the qord</button> to see what&rsquo;s underneath.</div>}
         {view==='translated' && <div className="exp-hint">Closer. But the shapes — the decisions, the pivots, the risks — are smoothed out.</div>}
 
         {selected && view==='qord' && <>

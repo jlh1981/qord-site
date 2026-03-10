@@ -1,47 +1,25 @@
 'use client';
 
-export default function Footer() {
-  const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
+import Link from 'next/link';
 
+export default function Footer() {
   return (
     <div className="footer">
-      <span>qord v1.2 / 2026</span>
+      <span>qord v1.3 / 2026</span>
       <span>
-        <button
-          onClick={() => scrollTo('protocol')}
+        <Link
+          href="/experience"
           style={{
-            background: 'none',
-            border: 'none',
             color: 'inherit',
-            font: 'inherit',
-            cursor: 'pointer',
+            textDecoration: 'none',
             opacity: 0.5,
-            padding: 0,
+            transition: 'opacity 0.1s',
           }}
           onMouseEnter={(e) => (e.target.style.opacity = 1)}
           onMouseLeave={(e) => (e.target.style.opacity = 0.5)}
         >
-          protocol
-        </button>
-        {' \u00B7 '}
-        <button
-          onClick={() => scrollTo('toolkit')}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: 'inherit',
-            font: 'inherit',
-            cursor: 'pointer',
-            opacity: 0.5,
-            padding: 0,
-          }}
-          onMouseEnter={(e) => (e.target.style.opacity = 1)}
-          onMouseLeave={(e) => (e.target.style.opacity = 0.5)}
-        >
-          toolkit
-        </button>
+          experience
+        </Link>
       </span>
     </div>
   );

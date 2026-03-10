@@ -10,20 +10,21 @@ export default function Problem() {
             Work moves. Understanding stays behind.
           </div>
           <div className="section-text">
-            Every time work crosses a boundary (between people, between tools,
-            between phases) the understanding that built it gets compressed,
-            summarized, or abandoned. The person on the other side receives the
-            deliverable. The reasoning, the dead ends, the pivots that shaped
-            it never arrive.
+            Every time work crosses a boundary &mdash; between people,
+            between tools, between phases, even between two conversations
+            on the same platform &mdash; the understanding that built it
+            gets compressed, summarized, or lost. The person on the other
+            side receives the deliverable. The reasoning, the dead ends,
+            the pivots that shaped it never arrive.
           </div>
         </div>
         <div>
           <div className="section-text" style={{ paddingTop: 40 }}>
-            We write briefs, build decks, and schedule alignment meetings
-            because understanding breaks at every handoff. The more complex
-            the work, the more it breaks. AI accelerates the work, which
-            widens the gap between what was understood during the build and
-            what the receiver can recover from the output alone.
+            AI made it faster, not better. Everyone can produce a polished
+            deck in twenty minutes. It&rsquo;s still a compression. More
+            artifacts arriving faster, at every boundary, all looking
+            authoritative &mdash; none carrying the understanding. The gap
+            didn&rsquo;t close. The speed to the gap increased.
           </div>
         </div>
       </div>
@@ -41,8 +42,8 @@ export default function Problem() {
             />
             <rect x="194" y="22" width="12" height="12" fill="#000" />
           </svg>
-          <div className="line-name">smooth</div>
-          <div className="line-label">How people think it went</div>
+          <div className="line-name">the deliverable</div>
+          <div className="line-label">What arrives</div>
         </div>
         <div className="line-cell">
           <svg className="line-svg" viewBox="-10 10 220 40" fill="none">
@@ -55,8 +56,8 @@ export default function Problem() {
             />
             <rect x="194" y="22" width="12" height="12" fill="#000" />
           </svg>
-          <div className="line-name">refined</div>
-          <div className="line-label">White papers &amp; summaries</div>
+          <div className="line-name">the summary</div>
+          <div className="line-label">Compressed and incomplete</div>
         </div>
         <div className="line-cell">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -66,8 +67,8 @@ export default function Problem() {
             className="line-cell-logo"
             style={{ width: '100%', height: 'auto' }}
           />
-          <div className="line-name">reality + qord</div>
-          <div className="line-label">The grab points make the mess usable</div>
+          <div className="line-name">the qord</div>
+          <div className="line-label">The understanding, preserved</div>
         </div>
       </div>
     </Window>

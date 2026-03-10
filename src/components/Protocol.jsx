@@ -3,36 +3,36 @@ import Window from './Window';
 const steps = [
   {
     num: '01',
-    title: 'Build normally',
-    desc: 'Work with your AI environment the way you already do. The qord log generates as a byproduct of the build.',
+    title: 'Captures',
+    desc: 'As you work with AI, Qord quietly logs the understanding behind the work — the decisions, the rejected paths, the reasoning, the open questions. No extra effort.',
   },
   {
     num: '02',
-    title: 'Log accumulates',
-    desc: 'Decisions, dead ends, pivots, breakthroughs. The log captures what mattered and why it mattered.',
+    title: 'Carries',
+    desc: 'The qord travels with the deliverable across any boundary — between people, platforms, phases, or conversations. The understanding stays intact.',
   },
   {
     num: '03',
-    title: 'Deliver with qord',
-    desc: 'The deliverable ships with its qord log as a companion layer. The actual understanding, structured to survive the crossing.',
+    title: 'Surfaces',
+    desc: 'On the other side, the receiver sees the shape of what they\u2019re holding. Grab points invite them in. They pull on whatever matters to them and get real depth.',
   },
   {
     num: '04',
-    title: 'Receive with depth',
-    desc: 'Any AI on the receiving side can use the qord log to provide full-depth understanding on demand.',
+    title: 'Connects',
+    desc: 'Understanding flows in every direction — forward, backward, across platforms. One continuous line, accessible from any point, in any direction.',
   },
 ];
 
 export default function Protocol() {
   return (
-    <Window title="protocol" id="protocol">
+    <Window title="how it works" id="howitworks">
       <div className="window-body">
-        <div className="section-number">02 / the protocol</div>
-        <div className="section-heading">How Qord works</div>
+        <div className="section-number">02 / how it works</div>
+        <div className="section-heading">Understanding that survives</div>
         <div className="section-text" style={{ maxWidth: 600, marginBottom: 28 }}>
-          The AI that helps build the work also quietly assembles the full
-          continuity of understanding. The builder does no extra work.
-          Understanding travels with the deliverable as a companion layer.
+          Qord preserves the continuity of understanding as work moves across
+          boundaries. The builder does no extra work. The receiver gets genuine
+          depth instead of a summary.
         </div>
       </div>
       <div className="protocol-steps">

@@ -26,11 +26,8 @@ export default function MenuBar() {
             <button className="menu-item" onClick={() => scrollTo('problem')}>
               the problem
             </button>
-            <button className="menu-item" onClick={() => scrollTo('protocol')}>
-              protocol
-            </button>
-            <button className="menu-item" onClick={() => scrollTo('toolkit')}>
-              toolkit
+            <button className="menu-item" onClick={() => scrollTo('howitworks')}>
+              how it works
             </button>
             <button className="menu-item" onClick={() => scrollTo('about')}>
               about
@@ -48,7 +45,7 @@ export default function MenuBar() {
         </Link>
       </div>
       <div className="menu-right">
-        <span>v1.2</span>
+        <span>v1.3</span>
       </div>
     </nav>
   );
