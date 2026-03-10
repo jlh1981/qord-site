@@ -172,7 +172,7 @@ export default function ExperienceDemo() {
             </div>
             {chatMessages.length > 0 && <div className="exp-chat-messages">
               {chatMessages.map((msg,i) => <div key={i} className={`exp-chat-msg ${msg.role}`}><div className="exp-chat-msg-role">{msg.role==='user'?'you':'qord'}</div><div className="exp-chat-msg-text">{msg.content}</div></div>)}
-              {chatLoading && <div className="exp-chat-msg assistant"><div className="exp-chat-msg-role">qord</div><div className="exp-chat-msg-text exp-chat-loading">pulling the thread...</div></div>}
+              {chatLoading && <div className="exp-chat-msg assistant"><div className="exp-chat-msg-role">qord</div><div className="exp-chat-msg-text exp-chat-loading">pulling the qord...</div></div>}
               {chatError && <div className="exp-chat-error">{chatError}</div>}
               <div ref={chatEndRef} />
             </div>}
