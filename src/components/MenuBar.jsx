@@ -45,7 +45,7 @@ export default function MenuBar() {
         </Link>
       </div>
       <div className="menu-right">
-        <span>v1.4</span>
+        <span>beta v1.5</span>
       </div>
     </nav>
   );

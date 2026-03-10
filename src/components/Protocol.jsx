@@ -4,12 +4,12 @@ const steps = [
   {
     num: '01',
     title: 'Captures',
-    desc: 'As you work with AI, Qord quietly logs the understanding behind the work — the decisions, the rejected paths, the reasoning, the open questions. No extra effort.',
+    desc: 'As you work with AI, Qord quietly logs the understanding behind the work. The decisions, the rejected paths, the reasoning, the open questions. No extra effort.',
   },
   {
     num: '02',
     title: 'Carries',
-    desc: 'The qord travels with the deliverable across any boundary — between people, platforms, phases, or conversations. The understanding stays intact.',
+    desc: 'The qord travels with the deliverable across any boundary. Between people, platforms, phases, or conversations. The understanding stays intact.',
   },
   {
     num: '03',
@@ -19,7 +19,7 @@ const steps = [
   {
     num: '04',
     title: 'Connects',
-    desc: 'Understanding flows in every direction — forward, backward, across platforms. One continuous line, accessible from any point, in any direction.',
+    desc: 'Understanding flows in every direction. Forward, backward, across platforms. One continuous line, accessible from any point, in any direction.',
   },
 ];
 

@@ -10,9 +10,9 @@ export default function Problem() {
             Work moves. Understanding stays behind.
           </div>
           <div className="section-text">
-            Every time work crosses a boundary &mdash; between people,
+            Every time work crosses a boundary, between people,
             between tools, between phases, even between two conversations
-            on the same platform &mdash; the understanding that built it
+            on the same platform, the understanding that built it
             gets compressed, summarized, or lost. The person on the other
             side receives the deliverable. The reasoning, the dead ends,
             the pivots that shaped it never arrive.
@@ -23,7 +23,7 @@ export default function Problem() {
             AI made it faster, not better. Everyone can produce a polished
             deck in twenty minutes. It&rsquo;s still a compression. More
             artifacts arriving faster, at every boundary, all looking
-            authoritative &mdash; none carrying the understanding. The gap
+            authoritative, none carrying the understanding. The gap
             didn&rsquo;t close. The speed to the gap increased.
           </div>
         </div>

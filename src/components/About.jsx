@@ -11,13 +11,10 @@ export default function About() {
         <div className="section-heading">Built from the problem</div>
         <div className="section-text">
           Qord was built by Justin Lee Hodges. The pattern behind it goes
-          back over twenty years &mdash; to a recording studio in Dallas,
-          watching an engineer shape each phase of a record for phases that
+          back over twenty years, to a recording studio in Dallas, watching
+          an engineer shape each phase of a record for phases that
           didn&rsquo;t exist yet. When the understanding pulled through, the
           result was alive. When it broke at any crossing, you could hear it.
-        </div>
-        <div className="origin-quote">
-          &ldquo;They always just ask her what camera she uses.&rdquo;
         </div>
         <div className="section-text">
           The same pattern showed up everywhere: enterprise systems,
@@ -29,7 +26,7 @@ export default function About() {
         </div>
         <div className="section-text">
           Qord was proven when its own absence caused the exact failure it
-          was designed to prevent &mdash; understanding breaking between two
+          was designed to prevent. Understanding broke between two
           conversations on the same platform, in the same project.
         </div>
         <div style={{ marginTop: 32, textAlign: 'center' }}>
