@@ -342,6 +342,17 @@ body {
   text-align: center;
 }
 
+.proof-callout {
+  background: var(--fg);
+  color: var(--bg);
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  padding: 28px 32px;
+  margin: 28px 0;
+  letter-spacing: 0.5px;
+}
+
 /* ===== FOOTER ===== */
 .footer {
   margin: 24px;

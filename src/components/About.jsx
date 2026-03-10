@@ -17,14 +17,11 @@ export default function About() {
           result was alive. When it broke at any crossing, you could hear it.
         </div>
         <div className="section-text">
-          The same pattern showed up everywhere: enterprise systems,
-          instructional design, product development, creative work. The
-          understanding always mattered most and was always the first thing
-          lost. AI gave the capacity to formalize the pattern into a system.
-          Working with AI as a thinking partner, two decades of pattern
-          recognition became a protocol, a product, and a proof.
+          The same pattern showed up in every field he worked in after.
+          AI gave the capacity to formalize it into a system. Two decades
+          of pattern recognition became a protocol, a product, and a proof.
         </div>
-        <div className="section-text">
+        <div className="proof-callout">
           Qord was proven when its own absence caused the exact failure it
           was designed to prevent. Understanding broke between two
           conversations on the same platform, in the same project.

@@ -23,7 +23,7 @@ export default function Problem() {
             AI made it faster, not better. Everyone can produce a polished
             deck in twenty minutes. It&rsquo;s still a compression. More
             artifacts arriving faster, at every boundary, all looking
-            authoritative, none carrying the understanding. The gap
+            authoritative, all compressing the understanding. The gap
             didn&rsquo;t close. The speed to the gap increased.
           </div>
         </div>

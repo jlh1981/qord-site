@@ -1,48 +1,20 @@
 import Window from './Window';
-
-const steps = [
-  {
-    num: '01',
-    title: 'Captures',
-    desc: 'As you work with AI, Qord quietly logs the understanding behind the work. The decisions, the rejected paths, the reasoning, the open questions. No extra effort.',
-  },
-  {
-    num: '02',
-    title: 'Carries',
-    desc: 'The qord travels with the deliverable across any boundary. Between people, platforms, phases, or conversations. The understanding stays intact.',
-  },
-  {
-    num: '03',
-    title: 'Surfaces',
-    desc: 'On the other side, the receiver sees the shape of what they\u2019re holding. Grab points invite them in. They pull on whatever matters to them and get real depth.',
-  },
-  {
-    num: '04',
-    title: 'Connects',
-    desc: 'Understanding flows in every direction. Forward, backward, across platforms. One continuous line, accessible from any point, in any direction.',
-  },
-];
+import Link from 'next/link';
 
 export default function Protocol() {
   return (
     <Window title="how it works" id="howitworks">
-      <div className="window-body">
+      <div className="window-body" style={{ padding: '48px 32px' }}>
         <div className="section-number">02 / how it works</div>
-        <div className="section-heading">Understanding that survives</div>
         <div className="section-text" style={{ maxWidth: 600, marginBottom: 28 }}>
-          Qord preserves the continuity of understanding as work moves across
-          boundaries. The builder does no extra work. The receiver gets genuine
-          depth instead of a summary.
+          Qord captures the understanding as you build. The decisions,
+          the rejected paths, the reasoning, the open questions. It travels
+          with the work across any boundary. On the other side, the depth
+          is there when someone needs it.
         </div>
-      </div>
-      <div className="protocol-steps">
-        {steps.map((s) => (
-          <div key={s.num} className="step">
-            <div className="step-num">{s.num}</div>
-            <div className="step-title">{s.title}</div>
-            <div className="step-desc">{s.desc}</div>
-          </div>
-        ))}
+        <Link href="/experience" className="btn" style={{ textDecoration: 'none' }}>
+          See what that looks like
+        </Link>
       </div>
     </Window>
   );
