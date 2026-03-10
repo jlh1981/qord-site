@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <div className="footer">
-      <span>qord v1.9 / 2026</span>
+      <span>qord v2.0 / 2026</span>
       <span>
         <Link
           href="/experience"
