@@ -1,6 +1,12 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+
 export default function MenuBar() {
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+
   const scrollTo = (id) => {
     if (id === 'top') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -11,25 +17,38 @@ export default function MenuBar() {
 
   return (
     <nav className="menu-bar">
-      <button className="menu-logo" onClick={() => scrollTo('top')}>
+      <Link href="/" className="menu-logo" style={{ textDecoration: 'none' }}>
         qord
-      </button>
+      </Link>
       <div className="menu-items">
-        <button className="menu-item" onClick={() => scrollTo('problem')}>
-          the problem
-        </button>
-        <button className="menu-item" onClick={() => scrollTo('protocol')}>
-          protocol
-        </button>
-        <button className="menu-item" onClick={() => scrollTo('toolkit')}>
-          toolkit
-        </button>
-        <button className="menu-item" onClick={() => scrollTo('about')}>
-          about
-        </button>
+        {isHome ? (
+          <>
+            <button className="menu-item" onClick={() => scrollTo('problem')}>
+              the problem
+            </button>
+            <button className="menu-item" onClick={() => scrollTo('protocol')}>
+              protocol
+            </button>
+            <button className="menu-item" onClick={() => scrollTo('toolkit')}>
+              toolkit
+            </button>
+            <button className="menu-item" onClick={() => scrollTo('about')}>
+              about
+            </button>
+          </>
+        ) : (
+          <>
+            <Link href="/" className="menu-item" style={{ textDecoration: 'none' }}>
+              home
+            </Link>
+          </>
+        )}
+        <Link href="/experience" className="menu-item" style={{ textDecoration: 'none' }}>
+          experience
+        </Link>
       </div>
       <div className="menu-right">
-        <span>v1.0</span>
+        <span>v1.1</span>
       </div>
     </nav>
   );

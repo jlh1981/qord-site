@@ -7,7 +7,7 @@ export default function Footer() {
 
   return (
     <div className="footer">
-      <span>qord v1.0 / 2026</span>
+      <span>qord v1.1 / 2026</span>
       <span>
         <button
           onClick={() => scrollTo('protocol')}
