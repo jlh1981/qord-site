@@ -428,6 +428,7 @@ body {
   font-size: 8px;
   color: #ccc;
   letter-spacing: 2px;
+  writing-mode: vertical-rl;
 }
 
 .exp-hint {

@@ -73,35 +73,48 @@ function seededRng(seed) {
   return () => { s = (s * 16807 + 0) % 2147483647; return (s - 1) / 2147483646; };
 }
 
+// Clamp y within safe bounds
+function clampY(y, h, margin) {
+  return Math.max(margin, Math.min(h - margin, y));
+}
+
 function surfacePath(w, h) {
   const mid = h / 2, pts = [];
   for (let i = 0; i <= 80; i++) {
-    pts.push(`${i === 0 ? 'M' : 'L'}${(i / 80) * w},${mid + Math.sin(i * 0.08) * 2 + Math.sin(i * 0.2) * 1}`);
+    const x = (i / 80) * w;
+    const y = mid + Math.sin(i * 0.08) * 2 + Math.sin(i * 0.2) * 1;
+    pts.push(`${i === 0 ? 'M' : 'L'}${x},${y}`);
   }
-  return pts.join(' ');
+  return { d: pts.join(' '), startY: mid, endY: mid };
 }
 
 function translatedPath(w, h) {
   const mid = h / 2, pts = [];
+  let firstY = mid, lastY = mid;
   for (let i = 0; i <= 150; i++) {
     const t = i / 150;
-    pts.push(`${i === 0 ? 'M' : 'L'}${t * w},${mid + Math.sin(t * Math.PI * 3.5) * 18 + Math.sin(t * Math.PI * 7) * 6 + Math.sin(t * Math.PI * 1.2) * 10}`);
+    const x = t * w;
+    const y = mid + Math.sin(t * Math.PI * 3.5) * 18 + Math.sin(t * Math.PI * 7) * 6 + Math.sin(t * Math.PI * 1.2) * 10;
+    if (i === 0) firstY = y;
+    if (i === 150) lastY = y;
+    pts.push(`${i === 0 ? 'M' : 'L'}${x},${y}`);
   }
-  return pts.join(' ');
+  return { d: pts.join(' '), startY: firstY, endY: lastY };
 }
 
-// Generate organic, angular path driven by node data
+// Generate organic path driven by node data — contained within bounds
 function qordPath(w, h, nodeData) {
   const rng = seededRng(42);
   const mid = h / 2;
-  const complexity = Math.min(nodeData.length / 10, 2.5); // scales with node count
+  const margin = 20; // keep shapes away from edges
+  const range = (h - margin * 2) / 2; // max displacement from center
 
   // Build waypoints: start, each node, end
   const waypoints = [{ x: 0, y: mid, sig: 0 }];
   for (const n of nodeData) {
-    const sigMult = n.sig === 'H' ? 1.4 : 0.8;
-    const yOff = (rng() - 0.5) * h * 0.55 * sigMult * complexity;
-    waypoints.push({ x: n.x * w, y: mid + yOff, sig: sigMult });
+    const sigMult = n.sig === 'H' ? 1.0 : 0.6;
+    const yOff = (rng() - 0.5) * range * 1.6 * sigMult;
+    waypoints.push({ x: n.x * w, y: clampY(mid + yOff, h, margin), sig: sigMult });
   }
   waypoints.push({ x: w, y: mid, sig: 0 });
   waypoints.sort((a, b) => a.x - b.x);
@@ -113,16 +126,14 @@ function qordPath(w, h, nodeData) {
     const p0 = waypoints[i];
     const p1 = waypoints[i + 1];
     const dx = p1.x - p0.x;
-    const dy = p1.y - p0.y;
-    const tension = 0.3 + rng() * 0.5;
+    const tension = 0.3 + rng() * 0.4;
     const avgSig = (p0.sig + p1.sig) / 2;
-    const chaos = (0.3 + avgSig * 0.7) * complexity;
+    const chaos = 0.3 + avgSig * 0.5;
 
-    // Sharp, angular control points
     const cp1x = p0.x + dx * tension;
-    const cp1y = p0.y + (rng() - 0.5) * h * 0.7 * chaos;
+    const cp1y = clampY(p0.y + (rng() - 0.5) * range * chaos, h, margin);
     const cp2x = p1.x - dx * tension;
-    const cp2y = p1.y + (rng() - 0.5) * h * 0.7 * chaos;
+    const cp2y = clampY(p1.y + (rng() - 0.5) * range * chaos, h, margin);
 
     d += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${p1.x},${p1.y}`;
   }
@@ -130,17 +141,18 @@ function qordPath(w, h, nodeData) {
   return d;
 }
 
-// Cache the waypoint Y positions so nodes sit on the line
+// Cache waypoint Y positions so nodes sit on the line
 function getNodeY(nodeData, w, h) {
   const rng = seededRng(42);
   const mid = h / 2;
-  const complexity = Math.min(nodeData.length / 10, 2.5);
+  const margin = 20;
+  const range = (h - margin * 2) / 2;
   const yMap = {};
 
   for (const n of nodeData) {
-    const sigMult = n.sig === 'H' ? 1.4 : 0.8;
-    const yOff = (rng() - 0.5) * h * 0.55 * sigMult * complexity;
-    yMap[n.id] = mid + yOff;
+    const sigMult = n.sig === 'H' ? 1.0 : 0.6;
+    const yOff = (rng() - 0.5) * range * 1.6 * sigMult;
+    yMap[n.id] = clampY(mid + yOff, h, margin);
   }
   return yMap;
 }
@@ -209,16 +221,30 @@ export default function ExperienceDemo() {
         </div>
         <div className="exp-desc">{views.find(v=>v.key===view)?.desc}</div>
         <div className="exp-canvas">
-          <div className="exp-label" style={{left:12}}>START</div>
-          <div className="exp-label" style={{right:12}}>NOW</div>
-          <svg ref={svgRef} width="100%" height={svgH} style={{overflow:'visible',display:'block'}}>
-            <rect x={pad-5} y={svgH/2-5} width={10} height={10} fill="#000" />
-            <rect x={pad+drawW-5} y={svgH/2-5} width={10} height={10} fill="#000" />
-            {view==='surface' && <path d={surfacePath(drawW,svgH)} fill="none" stroke="#000" strokeWidth={1.2} transform={`translate(${pad},0)`} />}
-            {view==='translated' && <path d={translatedPath(drawW,svgH)} fill="none" stroke="#000" strokeWidth={1.2} transform={`translate(${pad},0)`} />}
+          <div className="exp-label" style={{left:6}}>START</div>
+          <div className="exp-label" style={{right:6}}>NOW</div>
+          <svg ref={svgRef} width="100%" height={svgH} style={{display:'block'}}>
+            {view==='surface' && (() => {
+              const p = surfacePath(drawW, svgH);
+              return <>
+                <rect x={pad-5} y={p.startY-5} width={10} height={10} fill="#000" />
+                <path d={p.d} fill="none" stroke="#000" strokeWidth={1.2} transform={`translate(${pad},0)`} />
+                <rect x={pad+drawW-5} y={p.endY-5} width={10} height={10} fill="#000" />
+              </>;
+            })()}
+            {view==='translated' && (() => {
+              const p = translatedPath(drawW, svgH);
+              return <>
+                <rect x={pad-5} y={p.startY-5} width={10} height={10} fill="#000" />
+                <path d={p.d} fill="none" stroke="#000" strokeWidth={1.2} transform={`translate(${pad},0)`} />
+                <rect x={pad+drawW-5} y={p.endY-5} width={10} height={10} fill="#000" />
+              </>;
+            })()}
             {view==='qord' && <>
+              <rect x={pad-5} y={svgH/2-5} width={10} height={10} fill="#000" />
               <path d={qordPath(drawW,svgH,nodes)} fill="none" stroke="#000" strokeWidth={1.5} opacity={0.25} transform={`translate(${pad},0)`} strokeLinecap="round" strokeLinejoin="round" />
               {nodes.map(n => <g key={n.id} onMouseEnter={()=>setHoveredId(n.id)} onMouseLeave={()=>setHoveredId(null)}><Shape type={cats[n.cat].shape} x={pad+n.x*drawW} y={nodeYMap[n.id]} size={16} active={selectedId===n.id} hovered={hoveredId===n.id} onClick={()=>setSelectedId(selectedId===n.id?null:n.id)} /></g>)}
+              <rect x={pad+drawW-5} y={svgH/2-5} width={10} height={10} fill="#000" />
             </>}
           </svg>
         </div>

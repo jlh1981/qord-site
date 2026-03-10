@@ -23,10 +23,8 @@ export default function Hero() {
           Pull the understanding through.
         </div>
         <div className="hero-sub">
-          Understanding breaks every time work crosses a boundary &mdash;
-          between people, between tools, between conversations on the same
-          platform. Qord preserves it. Click into a real project and feel
-          the difference.
+          Memories, decisions, pivots. The &ldquo;why&rdquo; is preserved
+          across boundaries. The story matters as much as the ending.
         </div>
         <div className="hero-buttons">
           <Link href="/experience" className="btn" style={{ textDecoration: 'none' }}>
